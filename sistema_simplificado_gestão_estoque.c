@@ -32,9 +32,12 @@ void cabecalho(char descricao);
 void validaUsuario(char padraoUsuario, char entradaUsuario);
 void validaSenha(int padraoSenha, int entradaSenha);
 void controleEstoque();
-void op1();
-void op2();
-void op3();
+void verificaOpcao();
+void chamaOpcao(int opcaoEscolhida);
+void cadastro();
+void busca();
+void estoque();
+void sair();
 
 int main()
 {
@@ -89,15 +92,7 @@ void validaSenha(padraoSenha, entradaSenha)
 
 void controleEstoque()
 {
-    int op;
-    char respsaida;
-
-    printf("\n**************************************************************************\n");
-    printf("\n           SISTEMA DE GESTÃO DE ESTOQUE – FARMÁCIA XWY                    \n");
-    printf("\n**************************************************************************\n");
-
-    printf("\n\n---------- CONTROLE DE ESTOQUE --------------\n");
-
+    cabecalho("  CONTROLE DE ESTOQUE");
     printf("\n1- Cadastro de produto");
     printf("\n2- Busca de produto");
     printf("\n3- Exibir estoque de produtos");
@@ -105,55 +100,48 @@ void controleEstoque()
 
     printf("\n\n");
 
-    for(int i=0; i<100; i++)
+    verificaOpcao();
+}
+
+void verificaOpcao()
+{
+    int opcaoEscolhida;
+    while (opcaoEscolhida!=1 || opcaoEscolhida!=2 || opcaoEscolhida!=3 || opcaoEscolhida!=4)
     {
         printf("Escolha uma opção: ");
-        scanf("%d",&op);
+        scanf("%d",&opcaoEscolhida);
 
-        if(op==1 || op==2 || op==3 || op==4)
+        if(opcaoEscolhida==1 || opcaoEscolhida==2 || opcaoEscolhida==3 || opcaoEscolhida==4)
             break;
         else
             printf("\nOpção inválida\n\n");
     }
 
-
-    switch(op)
-    {
-    case 1:
-        system("cls");
-        op1();
-        break;
-    case 2:
-        system("cls");
-        op2();
-        break;
-    case 3:
-        system("cls");
-        op3();
-        break;
-    case 4:
-        system("cls");
-        getchar();
-        printf("você realmente deseja sair?(S ou N)");
-        scanf("%c",&respsaida);
-
-        if(respsaida=='n'||respsaida=='N')
-        {
-            system("cls");
-            getchar();
-            controleEstoque();
-        }
-        else
-        {
-            exit(1);
-            return 0;
-        }
-
-    }
-
+    chamaOpcao(opcaoEscolhida);
 }
 
-void op1()
+
+void chamaOpcao(opcaoEscolhida)
+{
+    system("cls");
+    switch(opcaoEscolhida)
+    {
+    case 1:
+        cadastro();
+        break;
+    case 2:
+        busca();
+        break;
+    case 3:
+        estoque();
+        break;
+    case 4:
+        sair();
+        break;
+    }
+}
+
+void cadastro()
 {
     char resposta;
     for(int i=0; i<100; i++)
@@ -188,7 +176,7 @@ void op1()
     }
 }
 
-void op2()
+void busca()
 {
     char infnome[60],resp;
     for(int i=0; i<100; i++)
@@ -234,7 +222,7 @@ void op2()
     }
 }
 
-void op3()
+void estoque()
 {
     char respret;
 
@@ -265,16 +253,20 @@ void op3()
         exit(1);
         return 0;
     }
+ }
+  
+ void sair()
+ {
+    char respsaida;
+    getchar();
+    printf("Você realmente deseja sair?(S ou N)");
+    scanf("%c",&respsaida);
 
-}
-
-
-
-
-
-
-
-
-
-
-
+    if(respsaida=='s'||respsaida=='S')
+    {
+        exit(1);
+        return 0;
+    }
+    else
+	  voltaControleEstoque(respsaida);
+ }
