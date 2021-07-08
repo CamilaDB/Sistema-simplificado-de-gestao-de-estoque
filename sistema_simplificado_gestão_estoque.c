@@ -3,13 +3,17 @@
 #include<locale.h>
 #include<string.h>
 
+/*
+  simula√ß√£o de um sistema simplificado de gest√£o de estoque utilizado por uma farm√°cia
+*/
+
 struct autentificacao
 {
     char usuario[12];
     int senha;
 };
 
-struct autentificacao a1 = {"meu usuario",123456};
+struct autentificacao autentificacaoPadrao = {"meu usuario",123456};
 
 struct produto
 {
@@ -24,6 +28,9 @@ struct produto pd[100];
 
 int indice;
 
+void cabecalho(char descricao);
+void validaUsuario(char padraoUsuario, char entradaUsuario);
+void validaSenha(int padraoSenha, int entradaSenha);
 void controleEstoque();
 void op1();
 void op2();
@@ -31,37 +38,53 @@ void op3();
 
 int main()
 {
-    struct autentificacao a;
+    struct autentificacao autentificacaoEntrada;
 
     setlocale(LC_ALL,"Portuguese");
 
-    printf("**************************************************************************\n");
-    printf("\n           SISTEMA DE GEST√O DE ESTOQUE ñ FARM¡CIA XWY                    \n");
-    printf("\n**************************************************************************\n");
-
-    printf("\n\n---------- AUTENTICA«√O DE USU¡RIO --------------\n");
-
-    do
-    {
-        a.senha=0;
-
-        printf("\nInforme seu usu·rio: ");
-        fgets(a.usuario,12,stdin);
-
-        printf("\nInforme sua senha: ");
-        scanf("%d",&a.senha);
-        printf("\n");
-
-        getchar();
-
-    }
-    while((strcmp(a.usuario,a1.usuario)==0)&&(a.senha==a1.senha));
-
+    cabecalho("AUTENTICA√á√ÉO DE USU√ÅRIO");
+    validaUsuario(autentificacaoPadrao.usuario, autentificacaoEntrada.usuario);
+    validaSenha(autentificacaoPadrao.senha, autentificacaoEntrada.senha);
+    
     system("cls");
 
     controleEstoque();
 
     return 0;
+}
+
+void cabecalho(descricao)
+{
+    printf("**************************************************************************\n");
+    printf("\n               SISTEMA DE GEST√ÉO DE ESTOQUE ‚Äì FARM√ÅCIA XWY\n");
+    printf("\n**************************************************************************\n");
+    printf("\n\n                      %s\n\n", descricao);
+}
+
+void validaUsuario(padraoUsuario, entradaUsuario)
+{
+    while(strcmp(padraoUsuario,entradaUsuario)!=0)
+    {
+        printf("\nInforme seu usu√°rio: ");
+        fgets(entradaUsuario,12,stdin);
+        if(strcmp(padraoUsuario,entradaUsuario)!=0)
+        {
+            printf("\nUsu√°rio n√£o encontrado, tente novamente.\n");
+        }
+    }
+}
+
+void validaSenha(padraoSenha, entradaSenha)
+{
+    while(padraoSenha!=entradaSenha)
+    {
+        printf("\nInforme sua senha: ");
+        scanf("%d",&entradaSenha);
+        if(padraoSenha!=entradaSenha)
+        {
+            printf("\nSenha inv√°lida, tente novamente.\n");
+        }
+    }
 }
 
 void controleEstoque()
@@ -70,7 +93,7 @@ void controleEstoque()
     char respsaida;
 
     printf("\n**************************************************************************\n");
-    printf("\n           SISTEMA DE GEST√O DE ESTOQUE ñ FARM¡CIA XWY                    \n");
+    printf("\n           SISTEMA DE GEST√ÉO DE ESTOQUE ‚Äì FARM√ÅCIA XWY                    \n");
     printf("\n**************************************************************************\n");
 
     printf("\n\n---------- CONTROLE DE ESTOQUE --------------\n");
@@ -84,13 +107,13 @@ void controleEstoque()
 
     for(int i=0; i<100; i++)
     {
-        printf("Escolha uma opÁ„o: ");
+        printf("Escolha uma op√ß√£o: ");
         scanf("%d",&op);
 
         if(op==1 || op==2 || op==3 || op==4)
             break;
         else
-            printf("\nOpÁ„o inv·lida\n\n");
+            printf("\nOp√ß√£o inv√°lida\n\n");
     }
 
 
@@ -111,7 +134,7 @@ void controleEstoque()
     case 4:
         system("cls");
         getchar();
-        printf("vocÍ realmente deseja sair?(S ou N)");
+        printf("voc√™ realmente deseja sair?(S ou N)");
         scanf("%c",&respsaida);
 
         if(respsaida=='n'||respsaida=='N')
@@ -139,11 +162,11 @@ void op1()
         getchar();
         printf("Informe nome do produto: ");
         fgets(pd[i].nome,60,stdin);
-        printf("Informe preÁo do produto: ");
+        printf("Informe pre√ßo do produto: ");
         scanf("%f",&pd[i].preco);
         printf("Informe a quantidade em estoque do produto: ");
         scanf("%d",&pd[i].estoque);
-        printf("Informe cÛdigo do produto: ");
+        printf("Informe c√≥digo do produto: ");
         scanf("%d",&pd[i].codigo);
         getchar();
         printf("Informe fornecedor do produto: ");
@@ -180,11 +203,11 @@ void op2()
             {
                 cont++;
                 printf("Produto: %s ",pd[i].nome);
-                printf("PreÁo: %.2f",pd[i].preco);
+                printf("Pre√ßo: %.2f",pd[i].preco);
                 printf("\n");
                 printf("Estoque: %d",pd[i].estoque);
                 printf("\n");
-                printf("CÛdigo do produto: %d",pd[i].codigo);
+                printf("C√≥digo do produto: %d",pd[i].codigo);
                 printf("\n");
                 printf("Nome do fornecedor: %s",pd[i].fornecedor);
                 printf("Validade:  %d",pd[i].validade);
@@ -194,7 +217,7 @@ void op2()
         }
         if(cont==0)
         {
-            printf("\nPRODUTO N√O ENCONTRADO\n");
+            printf("\nPRODUTO N√ÉO ENCONTRADO\n");
         }
 
         getchar();
@@ -226,7 +249,7 @@ void op3()
         }
     }
     else
-        printf("N„o h· produtos cadastrados!");
+        printf("N√£o h√° produtos cadastrados!");
 
     printf("\n\n");
     printf("Deseja retornar ao controle de estoque?(S ou N)");
