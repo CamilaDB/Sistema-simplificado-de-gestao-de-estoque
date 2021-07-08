@@ -38,6 +38,7 @@ void cadastro();
 void busca();
 void estoque();
 void sair();
+void voltaControleEstoque(char resposta);
 
 int main()
 {
@@ -166,14 +167,18 @@ void cadastro()
         printf("\n\n");
         printf("Deseja cadastrar mais produtos(S ou N)?  ");
         scanf("%s",&resposta);
-        if(resposta=='n'||resposta=='N')
-        {
-            system("cls");
-            getchar();
-            controleEstoque();
-        }
-        printf("\n\n");
+        voltaControleEstoque(resposta);
     }
+}
+
+void voltaControleEstoque(resposta)
+{
+    if(resposta=='n'||resposta=='N')
+    {
+        system("cls");
+        controleEstoque();
+    }
+    printf("\n\n");
 }
 
 void busca()
@@ -212,13 +217,7 @@ void busca()
         printf("\nDeseja procurar mais produtos(S ou N)? ");
         scanf("%s",&resp);
 
-        if(resp=='n'||resp=='N')
-        {
-            system("cls");
-            getchar();
-            controleEstoque();
-        }
-        printf("\n\n");
+        voltaControleEstoque(resp);
     }
 }
 
