@@ -144,22 +144,22 @@ void chamaOpcao(int opcaoEscolhida)
 void cadastro()
 {
     char resposta;
-    for(int i=quantidadeProdutos; i<100; i++)
+    while(resposta!='n' || resposta!='N')
     {
         getchar();
         printf("Informe nome do produto: ");
-        fgets(pd[i].nome,60,stdin);
+        fgets(pd[quantidadeProdutos].nome,60,stdin);
         printf("Informe preço do produto: ");
-        scanf("%f",&pd[i].preco);
+        scanf("%f",&pd[quantidadeProdutos].preco);
         printf("Informe a quantidade em estoque do produto: ");
-        scanf("%d",&pd[i].estoque);
+        scanf("%d",&pd[quantidadeProdutos].estoque);
         printf("Informe código do produto: ");
-        scanf("%d",&pd[i].codigo);
+        scanf("%d",&pd[quantidadeProdutos].codigo);
         getchar();
         printf("Informe fornecedor do produto: ");
-        fgets(pd[i].fornecedor,30,stdin);
+        fgets(pd[quantidadeProdutos].fornecedor,30,stdin);
         printf("Informe validade do produto (ano): ");
-        scanf("%d",&pd[i].validade);
+        scanf("%d",&pd[quantidadeProdutos].validade);
         printf("\n\n");
 	quantidadeProdutos++;
         printf("Cadastro do produto %d realizado com sucesso",quantidadeProdutos);
@@ -184,26 +184,26 @@ void voltaControleEstoque(char resposta)
 void busca()
 {
     char nomeProduto[60],resp;
-    for(int i=0; i<100; i++)
+    while(resp!='n' || resp!='N')
     {
         int produtoExiste=0;
         getchar();
         printf("Informe nome do produto para busca: ");
         fgets(nomeProduto,60,stdin);
-        for(int i=0; i<100; i++)
+        for(int indicePd=0; indicePd<quantidadeProdutos; indicePd++)
         {
-            if((strcmp(nomeProduto, pd[i].nome))==0)
+            if((strcmp(nomeProduto, pd[indicePd].nome))==0)
             {
                 produtoExiste=1;
-                printf("Produto: %s ",pd[i].nome);
-                printf("Preço: %.2f",pd[i].preco);
+                printf("Produto: %s ",pd[indicePd].nome);
+                printf("Preço: %.2f",pd[indicePd].preco);
                 printf("\n");
-                printf("Estoque: %d",pd[i].estoque);
+                printf("Estoque: %d",pd[indicePd].estoque);
                 printf("\n");
-                printf("Código do produto: %d",pd[i].codigo);
+                printf("Código do produto: %d",pd[indicePd].codigo);
                 printf("\n");
-                printf("Nome do fornecedor: %s",pd[i].fornecedor);
-                printf("Validade:  %d",pd[i].validade);
+                printf("Nome do fornecedor: %s",pd[indicePd].fornecedor);
+                printf("Validade:  %d",pd[indicePd].validade);
                 printf("\n");
                 break;
             }
@@ -226,11 +226,11 @@ void estoque()
 
     if(quantidadeProdutos!=0)
     {
-        for(int i=0; i<quantidadeProdutos; i++)
+        for(int indicePd=0; indicePd<quantidadeProdutos; indicePd++)
         {
-            printf("Produto: %s",pd[i].nome);
+            printf("Produto: %s",pd[indicePd].nome);
             printf("\n");
-            printf("Estoque: %d",pd[i].estoque);
+            printf("Estoque: %d",pd[indicePd].estoque);
             printf("\n\n");
         }
     }
