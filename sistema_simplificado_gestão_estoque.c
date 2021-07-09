@@ -26,7 +26,7 @@ struct produto
 };
 struct produto pd[100];
 
-int indice;
+int quantidadeProdutos;
 
 void cabecalho(char descricao);
 void validaUsuario(char padraoUsuario, char entradaUsuario);
@@ -147,7 +147,7 @@ void cadastro()
     char resposta;
     for(int i=0; i<100; i++)
     {
-        indice=i+1;
+        quantidadeProdutos=i+1;
         getchar();
         printf("Informe nome do produto: ");
         fgets(pd[i].nome,60,stdin);
@@ -183,16 +183,16 @@ void voltaControleEstoque(resposta)
 
 void busca()
 {
-    char infnome[60],resp;
+    char nomeProduto[60],resp;
     for(int i=0; i<100; i++)
     {
         int cont=0;
         getchar();
         printf("Informe nome do produto para busca: ");
-        fgets(infnome,60,stdin);
+        fgets(nomeProduto,60,stdin);
         for(int i=0; i<100; i++)
         {
-            if((strcmp(infnome, pd[i].nome))==0)
+            if((strcmp(nomeProduto, pd[i].nome))==0)
             {
                 cont++;
                 printf("Produto: %s ",pd[i].nome);
@@ -223,11 +223,11 @@ void busca()
 
 void estoque()
 {
-    char respret;
+    char res;
 
-    if(indice!=0)
+    if(quantidadeProdutos!=0)
     {
-        for(int i=0; i<indice; i++)
+        for(int i=0; i<quantidadeProdutos; i++)
         {
             printf("Produto: %s ",pd[i].nome);
             printf("\n");
@@ -240,18 +240,15 @@ void estoque()
 
     printf("\n\n");
     printf("Deseja retornar ao controle de estoque?(S ou N)");
-    scanf("%s",&respret);
+    scanf("%s",&res);
 
-    if(respret=='S' || respret=='s')
+    if(res=='S' || res=='s')
     {
         system("cls");
         controleEstoque();
     }
     else
-    {
-        exit(1);
-        return 0;
-    }
+    	sair();
  }
   
  void sair()
@@ -267,5 +264,5 @@ void estoque()
         return 0;
     }
     else
-	  voltaControleEstoque(respsaida);
+	voltaControleEstoque(respsaida);
  }
