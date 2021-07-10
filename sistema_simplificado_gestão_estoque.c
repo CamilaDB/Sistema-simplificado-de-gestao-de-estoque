@@ -19,7 +19,7 @@ struct produto
     char nome[60];
     float preco;
     int estoque;
-    int codigo;
+    int codigoProduto;
     char fornecedor[30];
     int validade;
 };
@@ -154,7 +154,7 @@ void cadastro()
         printf("Informe a quantidade em estoque do produto: ");
         scanf("%d",&pd[quantidadeProdutos].estoque);
         printf("Informe código do produto: ");
-        scanf("%d",&pd[quantidadeProdutos].codigo);
+        scanf("%d",&pd[quantidadeProdutos].codigoProduto);
         getchar();
         printf("Informe fornecedor do produto: ");
         fgets(pd[quantidadeProdutos].fornecedor,30,stdin);
@@ -200,7 +200,7 @@ void busca()
                 printf("\n");
                 printf("Estoque: %d",pd[indicePd].estoque);
                 printf("\n");
-                printf("Código do produto: %d",pd[indicePd].codigo);
+                printf("Código do produto: %d",pd[indicePd].codigoProduto);
                 printf("\n");
                 printf("Nome do fornecedor: %s",pd[indicePd].fornecedor);
                 printf("Validade:  %d",pd[indicePd].validade);
